@@ -1,0 +1,223 @@
+# Step 1: Create Product Class
+
+class Product:
+
+    def __init__(self, product_id, name, price, stock):
+        self.product_id = product_id
+        self.name = name
+        self.price = price
+        self.stock = stock
+
+    def display(self):
+        print(f"Product ID : {self.product_id}")
+        print(f"Name       : {self.name}")
+        print(f"Price      : ₹{self.price}")
+        print(f"Stock      : {self.stock}")
+
+
+# Step 2: Create Inventory and Cart
+
+inventory = []
+cart = []
+
+
+# Step 3: Add Product
+
+def add_product():
+
+    product_id = int(input("Enter Product ID : "))
+    name = input("Enter Product Name : ")
+    price = float(input("Enter Product Price : "))
+    stock = int(input("Enter Stock Quantity : "))
+
+    product = Product(product_id, name, price, stock)
+
+    inventory.append(product)
+
+    print("Product Added Successfully!")
+
+
+# Step 4: Display Products
+
+def display_products():
+
+    if len(inventory) == 0:
+        print("No Products Available.")
+        return
+
+    print("\nAvailable Products\n")
+
+    for product in inventory:
+        product.display()
+        print("-" * 30)
+
+
+# Step 5: Add Item to Cart
+
+def add_to_cart():
+
+    product_id = int(input("Enter Product ID : "))
+
+    for product in inventory:
+
+        if product.product_id == product_id:
+
+            if product.stock > 0:
+
+                cart.append(product)
+
+                product.stock -= 1
+
+                print("Item Added to Cart!")
+
+            else:
+
+                print("Product Out of Stock.")
+
+            return
+
+    print("Product Not Found.")
+
+
+# Step 6: Remove Item from Cart
+
+def remove_from_cart():
+
+    product_id = int(input("Enter Product ID : "))
+
+    for product in cart:
+
+        if product.product_id == product_id:
+
+            cart.remove(product)
+            product.stock += 1
+
+            print("Item Removed from Cart!")
+            return
+
+    print("Item Not Found in Cart.")
+
+
+# Step 7: View Cart
+
+def view_cart():
+
+    if len(cart) == 0:
+        print("Cart is Empty.")
+        return
+
+    total = 0
+
+    print("\nShopping Cart\n")
+
+    for product in cart:
+
+        print(product.name, "- ₹", product.price)
+
+        total += product.price
+
+    print("----------------------")
+    print("Total : ₹", total)
+
+
+# Step 8: Apply Discount
+
+def apply_discount():
+
+    if len(cart) == 0:
+        print("Cart is Empty.")
+        return
+
+    total = 0
+
+    for product in cart:
+        total += product.price
+
+    code = input("Enter Discount Code : ")
+
+    if code == "SAVE10":
+
+        discount = total * 0.10
+
+    elif code == "SAVE20":
+
+        discount = total * 0.20
+
+    else:
+
+        discount = 0
+        print("Invalid Discount Code.")
+
+    total = total - discount
+
+    print("Discount : ₹", discount)
+    print("Total After Discount : ₹", total)
+
+
+# Step 9: Checkout (Tax Calculation)
+
+def checkout():
+
+    if len(cart) == 0:
+        print("Cart is Empty.")
+        return
+
+    subtotal = 0
+
+    for product in cart:
+        subtotal += product.price
+
+    tax = subtotal * 0.18
+
+    grand_total = subtotal + tax
+
+    print("\nCheckout Summary")
+    print("-------------------------")
+    print("Subtotal : ₹", subtotal)
+    print("GST (18%) : ₹", tax)
+    print("Grand Total : ₹", grand_total)
+
+
+# Step 10: Main Menu
+
+while True:
+
+    print("\n===== E-Commerce Cart Simulator =====")
+    print("1. Add Product")
+    print("2. Display Products")
+    print("3. Add Item to Cart")
+    print("4. Remove Item from Cart")
+    print("5. View Cart")
+    print("6. Apply Discount")
+    print("7. Checkout")
+    print("8. Exit")
+
+    choice = input("Enter Choice : ")
+
+    if choice == "1":
+        add_product()
+
+    elif choice == "2":
+        display_products()
+
+    elif choice == "3":
+        add_to_cart()
+
+    elif choice == "4":
+        remove_from_cart()
+
+    elif choice == "5":
+        view_cart()
+
+    elif choice == "6":
+        apply_discount()
+
+    elif choice == "7":
+        checkout()
+
+    elif choice == "8":
+        print("Thank You!")
+        break
+
+    else:
+        print("Invalid Choice!")
