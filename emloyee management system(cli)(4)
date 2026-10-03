@@ -1,0 +1,193 @@
+# Step 1: Create Employee Class
+
+class Employee:
+
+    def __init__(self, emp_id, name, department, salary):
+        self.emp_id = emp_id
+        self.name = name
+        self.department = department
+        self.salary = salary
+
+    def display(self):
+        print(f"Employee ID : {self.emp_id}")
+        print(f"Name        : {self.name}")
+        print(f"Department  : {self.department}")
+        print(f"Salary      : ₹{self.salary}")
+
+
+# Step 2: Create Empty List
+
+employees = []
+
+
+# Step 3: Add Employee
+
+def add_employee():
+
+    emp_id = int(input("Enter Employee ID : "))
+    name = input("Enter Employee Name : ")
+    department = input("Enter Department : ")
+    salary = float(input("Enter Salary : "))
+
+    employee = Employee(emp_id, name, department, salary)
+
+    employees.append(employee)
+
+    print("Employee Added Successfully!")
+
+
+# Step 4: Display Employees
+
+def display_employees():
+
+    if len(employees) == 0:
+        print("No Employee Records Found.")
+        return
+
+    print("\nEmployee Records\n")
+
+    for employee in employees:
+        employee.display()
+        print("-" * 35)
+
+
+# Step 5: Search Employee
+
+def search_employee():
+
+    emp_id = int(input("Enter Employee ID : "))
+
+    for employee in employees:
+
+        if employee.emp_id == emp_id:
+
+            print("\nEmployee Found")
+            employee.display()
+            return
+
+    print("Employee Not Found.")
+
+
+# Step 6: Update Employee
+
+def update_employee():
+
+    emp_id = int(input("Enter Employee ID : "))
+
+    for employee in employees:
+
+        if employee.emp_id == emp_id:
+
+            employee.name = input("Enter New Name : ")
+            employee.department = input("Enter New Department : ")
+            employee.salary = float(input("Enter New Salary : "))
+
+            print("Employee Updated Successfully!")
+            return
+
+    print("Employee Not Found.")
+
+
+# Step 7: Delete Employee
+
+def delete_employee():
+
+    emp_id = int(input("Enter Employee ID : "))
+
+    for employee in employees:
+
+        if employee.emp_id == emp_id:
+
+            employees.remove(employee)
+
+            print("Employee Deleted Successfully!")
+            return
+
+    print("Employee Not Found.")
+
+
+# Step 8: Salary Hike
+
+def salary_hike():
+
+    emp_id = int(input("Enter Employee ID : "))
+
+    for employee in employees:
+
+        if employee.emp_id == emp_id:
+
+            percentage = float(input("Enter Hike Percentage : "))
+
+            hike = employee.salary * percentage / 100
+
+            employee.salary = employee.salary + hike
+
+            print("Salary Updated Successfully!")
+            print("New Salary : ₹", employee.salary)
+            return
+
+    print("Employee Not Found.")
+
+
+# Step 9: Bonus Calculation
+
+def calculate_bonus():
+
+    emp_id = int(input("Enter Employee ID : "))
+
+    for employee in employees:
+
+        if employee.emp_id == emp_id:
+
+            bonus = employee.salary * 0.10
+
+            print("Employee Name :", employee.name)
+            print("Bonus Amount : ₹", bonus)
+            return
+
+    print("Employee Not Found.")
+
+
+# Step 10: Main Menu
+
+while True:
+
+    print("\n===== Employee Management System =====")
+    print("1. Add Employee")
+    print("2. Display Employees")
+    print("3. Search Employee")
+    print("4. Update Employee")
+    print("5. Delete Employee")
+    print("6. Salary Hike")
+    print("7. Calculate Bonus")
+    print("8. Exit")
+
+    choice = input("Enter Choice : ")
+
+    if choice == "1":
+        add_employee()
+
+    elif choice == "2":
+        display_employees()
+
+    elif choice == "3":
+        search_employee()
+
+    elif choice == "4":
+        update_employee()
+
+    elif choice == "5":
+        delete_employee()
+
+    elif choice == "6":
+        salary_hike()
+
+    elif choice == "7":
+        calculate_bonus()
+
+    elif choice == "8":
+        print("Thank You!")
+        break
+
+    else:
+        print("Invalid Choice!")
