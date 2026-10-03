@@ -1,0 +1,159 @@
+# Step 1: Create Bank Account Class
+
+class BankAccount:
+
+    def __init__(self, acc_no, name, pin, balance):
+        self.acc_no = acc_no
+        self.name = name
+        self.pin = pin
+        self.balance = balance
+        self.transactions = []
+
+    def display(self):
+        print(f"Account Number : {self.acc_no}")
+        print(f"Account Holder : {self.name}")
+        print(f"Balance        : ₹{self.balance}")
+
+
+# Step 2: Create Bank Account
+
+acc_no = int(input("Create Account Number : "))
+name = input("Enter Account Holder Name : ")
+pin = input("Set 4-Digit PIN : ")
+balance = float(input("Enter Initial Balance : "))
+
+account = BankAccount(acc_no, name, pin, balance)
+
+print("\nAccount Created Successfully!")
+
+
+# Step 3: Login
+
+def login():
+
+    entered_pin = input("Enter PIN : ")
+
+    if entered_pin == account.pin:
+        return True
+
+    print("Incorrect PIN!")
+    return False
+
+
+# Step 4: Deposit Money
+
+def deposit():
+
+    amount = float(input("Enter Deposit Amount : "))
+
+    account.balance += amount
+
+    account.transactions.append("Deposited ₹" + str(amount))
+
+    print("Amount Deposited Successfully!")
+
+
+# Step 5: Withdraw Money
+
+def withdraw():
+
+    amount = float(input("Enter Withdrawal Amount : "))
+
+    if amount <= account.balance:
+
+        account.balance -= amount
+
+        account.transactions.append("Withdrawn ₹" + str(amount))
+
+        print("Withdrawal Successful!")
+
+    else:
+
+        print("Insufficient Balance.")
+
+
+# Step 6: Check Balance
+
+def check_balance():
+
+    print("Available Balance : ₹", account.balance)
+
+
+# Step 7: Transaction History
+
+def transaction_history():
+
+    if len(account.transactions) == 0:
+
+        print("No Transactions Found.")
+        return
+
+    print("\nTransaction History\n")
+
+    for transaction in account.transactions:
+        print(transaction)
+
+
+# Step 8: Simple Interest Calculator
+
+def simple_interest():
+
+    principal = account.balance
+
+    rate = float(input("Enter Interest Rate (%) : "))
+    time = float(input("Enter Time (Years) : "))
+
+    interest = (principal * rate * time) / 100
+
+    print("Simple Interest : ₹", interest)
+    print("Amount After Interest : ₹", principal + interest)
+
+
+# Step 9: Display Account Details
+
+def account_details():
+
+    account.display()
+
+
+# Step 10: Main Menu
+
+while True:
+
+    print("\n===== Bank Account Simulator =====")
+    print("1. Deposit")
+    print("2. Withdraw")
+    print("3. Check Balance")
+    print("4. Transaction History")
+    print("5. Simple Interest")
+    print("6. Account Details")
+    print("7. Exit")
+
+    choice = input("Enter Choice : ")
+
+    if choice == "7":
+        print("Thank You!")
+        break
+
+    if login():
+
+        if choice == "1":
+            deposit()
+
+        elif choice == "2":
+            withdraw()
+
+        elif choice == "3":
+            check_balance()
+
+        elif choice == "4":
+            transaction_history()
+
+        elif choice == "5":
+            simple_interest()
+
+        elif choice == "6":
+            account_details()
+
+        else:
+            print("Invalid Choice!")
