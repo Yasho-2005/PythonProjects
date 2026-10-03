@@ -1,0 +1,218 @@
+# Step 1: Create Room Class
+
+class Room:
+
+    def __init__(self, room_no, category, price):
+        self.room_no = room_no
+        self.category = category
+        self.price = price
+        self.is_booked = False
+        self.customer_name = ""
+
+    def display(self):
+        print(f"Room Number : {self.room_no}")
+        print(f"Category    : {self.category}")
+        print(f"Price/Night : ₹{self.price}")
+
+        if self.is_booked:
+            print("Status      : Booked")
+            print("Customer    :", self.customer_name)
+        else:
+            print("Status      : Available")
+
+
+# Step 2: Create Empty List
+
+rooms = []
+
+
+# Step 3: Add Room
+
+def add_room():
+
+    room_no = int(input("Enter Room Number : "))
+    category = input("Enter Room Category (Standard/Deluxe/Suite) : ")
+    price = float(input("Enter Price Per Night : "))
+
+    room = Room(room_no, category, price)
+
+    rooms.append(room)
+
+    print("Room Added Successfully!")
+
+
+# Step 4: Display Rooms
+
+def display_rooms():
+
+    if len(rooms) == 0:
+        print("No Rooms Available.")
+        return
+
+    print("\nRoom Details\n")
+
+    for room in rooms:
+        room.display()
+        print("-" * 35)
+
+
+# Step 5: Check Room Availability
+
+def check_availability():
+
+    room_no = int(input("Enter Room Number : "))
+
+    for room in rooms:
+
+        if room.room_no == room_no:
+
+            if room.is_booked:
+                print("Room is Already Booked.")
+            else:
+                print("Room is Available.")
+
+            return
+
+    print("Room Not Found.")
+
+
+# Step 6: Book Room
+
+def book_room():
+
+    room_no = int(input("Enter Room Number : "))
+
+    for room in rooms:
+
+        if room.room_no == room_no:
+
+            if room.is_booked:
+
+                print("Room Already Booked.")
+
+            else:
+
+                room.customer_name = input("Enter Customer Name : ")
+                room.is_booked = True
+
+                print("Room Booked Successfully!")
+
+            return
+
+    print("Room Not Found.")
+
+
+# Step 7: Cancel Booking
+
+def cancel_booking():
+
+    room_no = int(input("Enter Room Number : "))
+
+    for room in rooms:
+
+        if room.room_no == room_no:
+
+            if room.is_booked:
+
+                room.is_booked = False
+                room.customer_name = ""
+
+                print("Booking Cancelled Successfully!")
+
+            else:
+
+                print("Room is Already Available.")
+
+            return
+
+    print("Room Not Found.")
+
+
+# Step 8: Calculate Bill
+
+def calculate_bill():
+
+    room_no = int(input("Enter Room Number : "))
+
+    for room in rooms:
+
+        if room.room_no == room_no:
+
+            if room.is_booked:
+
+                nights = int(input("Enter Number of Nights : "))
+
+                total = room.price * nights
+
+                print("Customer :", room.customer_name)
+                print("Room Category :", room.category)
+                print("Total Bill : ₹", total)
+
+            else:
+
+                print("Room is Not Booked.")
+
+            return
+
+    print("Room Not Found.")
+
+
+# Step 9: Search Room
+
+def search_room():
+
+    room_no = int(input("Enter Room Number : "))
+
+    for room in rooms:
+
+        if room.room_no == room_no:
+
+            room.display()
+            return
+
+    print("Room Not Found.")
+
+
+# Step 10: Main Menu
+
+while True:
+
+    print("\n===== Hotel Room Booking System =====")
+    print("1. Add Room")
+    print("2. Display Rooms")
+    print("3. Check Room Availability")
+    print("4. Book Room")
+    print("5. Cancel Booking")
+    print("6. Calculate Bill")
+    print("7. Search Room")
+    print("8. Exit")
+
+    choice = input("Enter Choice : ")
+
+    if choice == "1":
+        add_room()
+
+    elif choice == "2":
+        display_rooms()
+
+    elif choice == "3":
+        check_availability()
+
+    elif choice == "4":
+        book_room()
+
+    elif choice == "5":
+        cancel_booking()
+
+    elif choice == "6":
+        calculate_bill()
+
+    elif choice == "7":
+        search_room()
+
+    elif choice == "8":
+        print("Thank You!")
+        break
+
+    else:
+        print("Invalid Choice!")
