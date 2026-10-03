@@ -1,0 +1,196 @@
+# Step 1: Create Course Class
+
+class Course:
+
+    def __init__(self, course_id, course_name, student_name, total_classes):
+        self.course_id = course_id
+        self.course_name = course_name
+        self.student_name = student_name
+        self.total_classes = total_classes
+        self.attended_classes = 0
+
+    def display(self):
+        print(f"Course ID        : {self.course_id}")
+        print(f"Course Name      : {self.course_name}")
+        print(f"Student Name     : {self.student_name}")
+        print(f"Total Classes    : {self.total_classes}")
+        print(f"Attended Classes : {self.attended_classes}")
+
+
+# Step 2: Create Empty List
+
+courses = []
+
+
+# Step 3: Add Course
+
+def add_course():
+
+    course_id = int(input("Enter Course ID : "))
+    course_name = input("Enter Course Name : ")
+    student_name = input("Enter Student Name : ")
+    total_classes = int(input("Enter Total Classes : "))
+
+    course = Course(course_id, course_name, student_name, total_classes)
+
+    courses.append(course)
+
+    print("Course Added Successfully!")
+
+
+# Step 4: Display Courses
+
+def display_courses():
+
+    if len(courses) == 0:
+        print("No Course Records Found.")
+        return
+
+    print("\nCourse Records\n")
+
+    for course in courses:
+        course.display()
+        print("-" * 35)
+
+
+# Step 5: Search Course
+
+def search_course():
+
+    course_id = int(input("Enter Course ID : "))
+
+    for course in courses:
+
+        if course.course_id == course_id:
+
+            print("\nCourse Found")
+            course.display()
+            return
+
+    print("Course Not Found.")
+
+
+# Step 6: Enroll Student
+
+def enroll_student():
+
+    course_id = int(input("Enter Course ID : "))
+
+    for course in courses:
+
+        if course.course_id == course_id:
+
+            name = input("Enter New Student Name : ")
+
+            course.student_name = name
+
+            print("Student Enrolled Successfully!")
+            return
+
+    print("Course Not Found.")
+
+
+# Step 7: Mark Attendance
+
+def mark_attendance():
+
+    course_id = int(input("Enter Course ID : "))
+
+    for course in courses:
+
+        if course.course_id == course_id:
+
+            if course.attended_classes < course.total_classes:
+
+                course.attended_classes += 1
+
+                print("Attendance Marked Successfully!")
+
+            else:
+
+                print("All Classes Already Attended.")
+
+            return
+
+    print("Course Not Found.")
+
+
+# Step 8: Calculate Course Completion
+
+def course_completion():
+
+    course_id = int(input("Enter Course ID : "))
+
+    for course in courses:
+
+        if course.course_id == course_id:
+
+            percentage = (course.attended_classes / course.total_classes) * 100
+
+            print("Course Completion :", round(percentage, 2), "%")
+            return
+
+    print("Course Not Found.")
+
+
+# Step 9: Delete Course
+
+def delete_course():
+
+    course_id = int(input("Enter Course ID : "))
+
+    for course in courses:
+
+        if course.course_id == course_id:
+
+            courses.remove(course)
+
+            print("Course Deleted Successfully!")
+            return
+
+    print("Course Not Found.")
+
+
+# Step 10: Main Menu
+
+while True:
+
+    print("\n===== Learning Management System =====")
+    print("1. Add Course")
+    print("2. Display Courses")
+    print("3. Search Course")
+    print("4. Enroll Student")
+    print("5. Mark Attendance")
+    print("6. Course Completion")
+    print("7. Delete Course")
+    print("8. Exit")
+
+    choice = input("Enter Choice : ")
+
+    if choice == "1":
+        add_course()
+
+    elif choice == "2":
+        display_courses()
+
+    elif choice == "3":
+        search_course()
+
+    elif choice == "4":
+        enroll_student()
+
+    elif choice == "5":
+        mark_attendance()
+
+    elif choice == "6":
+        course_completion()
+
+    elif choice == "7":
+        delete_course()
+
+    elif choice == "8":
+        print("Thank You!")
+        break
+
+    else:
+        print("Invalid Choice!")
